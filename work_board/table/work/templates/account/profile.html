@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h2>
+  Name: {{user.first_name}}<br>
+  Last name: {{user.last_name}}<br>
+  Email: {{user.email}}<br>
+  Age: {{user.profile.age}}<br>
+  Category: {{user.profile.category}}<br>
+  Experience: {{user.profile.experience}}<br>
+  Country: {{user.profile.country}}<br>
+  City: {{user.profile.city}}<br>
+  Description: {{user.profile.description}}<br>
+</h2>
+<a href="{% url 'account:edit' %}">
+You can change your data<br>
+</a>
+<h2>
+<a href="{% url 'account:create' %}">
+You can create new announcement
+</a>
+</h2>
+{% for announcement in announcement_my %}
+    <h2>
+      Your announcement: <br>
+      <a href="{{announcement.get_absolute_url}}">
+        {{ announcement.title }}: {{announcement.price}}$<br>
+        {{announcement.author}}
+      </a>
+    </h2>
+  {% empty %}
+    <li>Sorry, no athletes in this list.</li>
+{% endfor %}
+{% endblock %}

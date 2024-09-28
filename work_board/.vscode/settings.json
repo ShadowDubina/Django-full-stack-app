@@ -1,0 +1,5 @@
+{
+    "python.terminal.activateEnvironment": true,
+    "python.globalModuleInstallation": true,
+    "python.terminal.activateEnvInCurrentTerminal": true
+}

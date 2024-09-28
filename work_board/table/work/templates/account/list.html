@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}All announcement{% endblock %}
+
+{% block content %}
+  {% if tag %}
+    <h2> Announcements tagged with "{{tag.name}}"</h2>
+  {% endif %}
+  {% for announcement in announcements %}
+    <h2>
+      <a href="{{announcement.get_absolute_url}}">
+        {{ announcement.title }}: {{announcement.price}}$
+      </a>
+    </h2>
+    <p class="tags">Tags:
+    {% for tag in announcement.tags.all %}
+      <a href="{% url "work:announcement_list_by_tag" tag.slug %}" >
+        {{tag.name}}
+      </a>
+      {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+    <p class="date">
+      Published {{ announcement.all }} by {{ announcement.author }}
+    </p>
+    {{ announcement.description|truncatewords:30|linebreaks }}
+  {% endfor %}
+  {% include "pagination.html" with page=announcements %}
+{% endblock %}

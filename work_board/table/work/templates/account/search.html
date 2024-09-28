@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+  {% if query %}
+    <h1>Announcement containing words "{{ query }}"</h1>
+    <h3>
+      {% with results.count as total_results %}
+        Found {{ total_results }} result{{ total_results|pluralize }}
+      {% endwith %}
+    </h3>
+    {% for announcement in results %}
+      <a href="{{ announcement.get_absolute_url }}">
+        {{announcement.title}}<br>
+      </a>
+      <p>
+        {{announcement.description|truncatewords:15|linebreaks}}
+      </p>
+      <p class="tags">Tags:
+        {% for tag in announcement.tags.all %}
+          <a href="{% url "work:announcement_list_by_tag" tag.slug %}" >
+          {{tag.name}}
+          </a>
+          {% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </p>
+    {% empty %}
+      <p>There are no results for your query.</p>
+    {% endfor %}
+    <p><a href="{% url "account:search" %}">Search again</a></p>
+    {% include "pagination.html" with page=announcements %}
+  {% else %}
+    <h1>Search for jobs</h1>
+    <form method="get">
+      {{ form.as_p }}
+      <input type="submit" value="Search">
+    </form>
+  {% endif %}
+{% endblock %}

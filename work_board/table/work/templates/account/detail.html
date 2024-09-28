@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ announcement.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ announcement.title }}</h1>
+  <p class="date">
+    This announcement created at {{announcement.publish}}<br>
+    You're looking at category {{ announcement.category}} by {{ announcement.author }}<br>
+    Price this vacation {{announcement.price}} $ <br>
+    You are invited {{announcement.company}}<br>
+    You need {{announcement.experience}} for this vacation <br>
+    Our address {{announcement.address}}
+  </p>
+  {{ announcement.description|linebreaks }}
+  <h2>Similar announcements</h2>
+  {% for announcement in similar_announcements %}
+    <p>
+      <a href="{{announcement.get_absolute_url}}">{{announcement.title}}: {{announcement.price}}$</a>
+    </p>
+  {% empty %}
+    There are no similar announcements yet
+  {% endfor %}
+{% endblock %}
