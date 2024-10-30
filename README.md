@@ -1,3 +1,17 @@
+Hello!
+My project can:
+
+-Authenticate
+
+-Registration
+
+-Search
+
+-Db(Postgresql)
+
+-Frontend(css, html)
+
+
 1. Clone repository
 
 `https://github.com/ShadowDubina/Django-full-stack-app.git`
